@@ -1,3 +1,5 @@
+package sumo.sim;
+
 import de.tudresden.sumo.objects.SumoStringList;
 import it.polito.appeal.traci.SumoTraciConnection;
 import de.tudresden.sumo.cmd.Trafficlight;
