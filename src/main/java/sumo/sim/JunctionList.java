@@ -126,7 +126,11 @@ public class JunctionList {
         return null;
     }
 
-
+    /**
+     * Goes through the Junction list and returns the lowest X coordinate given.
+     *
+     * @return The lowest X coordinate of the Junction list.
+     */
     public double getMinPosX(){
         double minX = Double.MAX_VALUE; // max value so the first element is always the smallest, still needs check if list is empty
         for (JunctionWrap jw : junctions) {
@@ -135,6 +139,11 @@ public class JunctionList {
         return minX;
     }
 
+    /**
+     * Goes through the Junction list and returns the lowest Y coordinate given.
+     *
+     * @return The lowest Y coordinate of the Junction list.
+     */
     public double getMinPosY(){
         double minY = Double.MAX_VALUE;
         for (JunctionWrap jw : junctions) {
@@ -143,6 +152,11 @@ public class JunctionList {
         return minY;
     }
 
+    /**
+     * Goes through the Junction list and returns the highest Y coordinate given.
+     *
+     * @return The highest Y coordinate of the Junction list.
+     */
     public double getMaxPosY(){
         double maxY = -Double.MAX_VALUE;
         for (JunctionWrap jw : junctions) {
@@ -151,6 +165,11 @@ public class JunctionList {
         return maxY;
     }
 
+    /**
+     * Goes through the Junction list and returns the highest X coordinate given.
+     *
+     * @return The highest X coordinate of the Junction list.
+     */
     public double getMaxPosX(){
         double maxX = -Double.MAX_VALUE;
         for (JunctionWrap jw : junctions) {
@@ -159,7 +178,11 @@ public class JunctionList {
         return maxX;
     }
 
-
+    /**
+     * Returns the center X coordinate based of the Junction list
+     *
+     * @return The returned X coordinate
+     */
     public double getCenterPosX() {
         if (junctions.isEmpty()) return 0;
 
@@ -175,6 +198,11 @@ public class JunctionList {
         return (minX + maxX) / 2;
     }
 
+    /**
+     * Returns the center Y coordinate based of the Junction list
+     *
+     * @return The returned Y coordinate
+     */
     public double getCenterPosY() {
         if (junctions.isEmpty()) return 0;
 

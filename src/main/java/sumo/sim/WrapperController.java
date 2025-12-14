@@ -49,6 +49,11 @@ public class WrapperController {
     //public static String currentNet = "src/main/resources/SumoConfig/Map_2/test.net.xml";
     //public static String currentRou = "src/main/resources/SumoConfig/Map_2/test.rou.xml";
 
+    /**
+     * The constructor of the Wrapper controller.
+     *
+     * @param guiController
+     */
     public WrapperController(GuiController guiController) {
         // Select Windows (.exe) or UNIX binary based on static function Util.getOSType()
         String sumoBinary = Util.getOSType().equals("Windows")
@@ -69,6 +74,9 @@ public class WrapperController {
         connectionConfig();
     }
 
+    /**
+     * Initial setup to initiate server connection.
+     */
     public void connectionConfig() {
         connection.addOption("start", "true");
         //connection.addOption("quit-on-end", "true");
@@ -94,6 +102,10 @@ public class WrapperController {
         start();
     }
 
+    /**
+     * Starts/Continues the simulation.
+     * If the connection is closed it will terminate immediate.
+     */
     public void start() { // maybe with connection as argument? closing connection opened prior
         executor = Executors.newSingleThreadScheduledExecutor(); // creates scheduler thread, runs repeatedly
         executor.scheduleAtFixedRate(() -> {
@@ -140,10 +152,16 @@ public class WrapperController {
         }
     }
 
+    /**
+     * Sets the paused parameter to false, so that the simulation can continue.
+     */
     public void startSim() {
         paused = false;
     }
 
+    /**
+     * Sets the paused parameter to true. The simulation will be halted.
+     */
     public void stopSim() {
         paused = true;
     }
@@ -172,6 +190,10 @@ public class WrapperController {
 
     // fixed Exceptions thrown by Simulation when trying to close during step
     // closing can still throw exceptions on JavaFX Application Thread caused by trying to render while simulation is closed (java.lang.IllegalStateException: connection is closed)
+
+    /**
+     * Terminates the simulation.
+     */
     public void terminate() {
         paused = false; // else executor would not terminate
         terminated = true; // Flag to stop new logic
@@ -197,14 +219,29 @@ public class WrapperController {
         }
     }
 
+    /**
+     * Returns the number of currently existing vehicles in the simulation.
+     *
+     * @return Number of vehicles currently in the simulation.
+     */
     public int updateCountVehicle() {
         return vl.getExistingVehCount();
     }
 
+    /**
+     * Returns the number of total vehicles used in the Simulation
+     * @return
+     */
     public int getAllVehicleCount() {
         return vl.getCount();
     }
 
+    /**
+     * Function to test how much the simulation can handle.
+     *
+     * @param amount Number of vehicle to release onto the Simulation
+     * @param color Colour of the vehicles to be unleashed
+     */
     public void StressTest(int amount, Color color) {
         Map<String, List<String>> Routes = rl.getAllRoutes();
         int amount_per = amount/Routes.size();
@@ -216,50 +253,110 @@ public class WrapperController {
 
     // getter
 
+    /**
+     * Returns a String of the current simulation network
+     * @return simulation network name.
+     */
     public static String getCurrentNet(){
         return currentNet;
     }
 
+    /**
+     * Returns the current time inside the simulation.
+     *
+     * @return Current time inside the simulation
+     */
     public double getTime() {
         return simTime;
     }
 
+    /**
+     * Returns the delay set currently for the simulation.
+     *
+     * @return Delay set
+     */
     public int getDelay() {
         return delay;
     }
 
+    /**
+     * Returns the list of all junctions inside the simulation
+     *
+     * @return Junction list
+     */
     public JunctionList getJunctions() {
         return jl;
     }
 
+    /**
+     * Returns the list of all streets inside the simulation
+     *
+     * @return Street list
+     */
     public StreetList getStreets() {
         return sl;
     }
 
+    /**
+     * Returns the list of all vehicles inside the simulation.
+     *
+     * @return Vehicle list
+     */
     public VehicleList getVehicles() {
         return vl;
     }
 
+    /**
+     * Returns the list of all traffic lights inside the simulation
+     *
+     * @return Traffic light list
+     */
     public TrafficLightList getTrafficLights() {
         return tl;
     }
 
+    /**
+     * Returns the list of all 'Type' objects inside the simulation.
+     *
+     * @return Type list
+     */
     public String[] getTypeList() {
         return typel.getAllTypes();
     }
 
+    /**
+     * Returns the list of all vehicle routes inside the simulation.
+     *
+     * @return Routes list
+     */
     public String[] getRouteList() {
         return rl.getAllRoutesID();
     }
 
+    /**
+     * Returns the list of all traffic light ids inside the simulation.
+     *
+     * @return Traffic light ID list
+     */
     public String[] getTLids() {
         return tl.getIDs();
     }
 
+    /**
+     * Tells you whether the list of remaining routes is the filled.
+     *
+     * @return True or False
+     */
     public boolean isRouteListEmpty() {
         return rl.isRouteListEmpty();
     }
 
+    /**
+     * Returns the duration of the phase of which the selected traffic light is currently on
+     *
+     * @param tlID
+     * @return e.g.: [g,r,y,80] -> state , last element is duration
+     */
     public String[] getTlStateDuration(String tlID) {
         String [] ret = new String[tl.getTL(tlID).getCurrentState().length/2 + 2]; // 2 extra values: dur, remain
         int j = 0;
@@ -275,6 +372,11 @@ public class WrapperController {
 
     //setter
 
+    /**
+     * Sets the duration of the phase the traffic light is currently on.
+     * @param tlid
+     * @param duration
+     */
     public void setTlSettings(String tlid, int duration) {
         tl.getTL(tlid).setPhaseDuration(duration);
 

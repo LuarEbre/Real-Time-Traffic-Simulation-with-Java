@@ -123,7 +123,6 @@ public class TrafficLightWrap {
      * @throws RuntimeException if the TraCI command fails.
      */
     public void setPhaseNumber(int index) {
-        //TODO: check if index exists in TL
         try {
             con.do_job_set(Trafficlight.setPhase(id,index));
         } catch (Exception e) {
@@ -196,8 +195,11 @@ public class TrafficLightWrap {
         }
     }
 
+    /**
+     * Modifies the Trafficlight behaviour according to the selected program selected
+     * @param programID The ID of the selected program
+     */
     public void setProgram(String programID) {
-        //TODO: check for programID
         try {
             con.do_job_set(Trafficlight.setProgram(id, programID));
         } catch (Exception e) {
@@ -206,7 +208,6 @@ public class TrafficLightWrap {
     }
 
     public void setRedYellowGreenState(String state) {
-        //TODO: string check
         try {
             con.do_job_set(Trafficlight.setRedYellowGreenState(id, state));
         } catch (Exception e) {
@@ -226,6 +227,11 @@ public class TrafficLightWrap {
 
     // getter
 
+    /**
+     * Returns the number assigned to the phase the traffic light is currently on
+     *
+     * @return  The returned Phase number.
+     */
     public int getPhaseNumber() {
         try {
             return (int) con.do_job_get(Trafficlight.getPhase(id)); // gets phase of tl = 1, 2, 3
@@ -234,6 +240,11 @@ public class TrafficLightWrap {
         }
     }
 
+    /**
+     *  Returns the name assigned to the phase the traffic light is currently on
+     *
+     * @return The returned phase name.
+     */
     public String getPhaseName() {
         try {
             return (String) con.do_job_get(Trafficlight.getPhaseName(id));
@@ -242,6 +253,10 @@ public class TrafficLightWrap {
         }
     }
 
+    /**
+     * Returns the time (double) assigned to phase the traffic light is currently on
+     * @return  The duration of the current phase
+     */
     public double getDuration() {
         double duration = 0;
         try {
@@ -253,6 +268,13 @@ public class TrafficLightWrap {
     }
 
     // returns time remaining until tl switches states
+
+    /**
+     * Returns the next phase which the traffic light will switch too.
+     * If nothing was previously specified the next phase will be the increment of the current phase
+     *
+     * @return  The next phase ID number
+     */
     public double getNextSwitch() {
         double duration = 0;
         try {
@@ -263,7 +285,11 @@ public class TrafficLightWrap {
         return duration;
     }
 
-
+    /**
+     * Returns the program ID if it was specified beforehand.
+     *
+     * @return The current program ID.
+     */
     public String getProgram() {
         try {
             return (String) con.do_job_get(Trafficlight.getProgram(id));
@@ -272,15 +298,10 @@ public class TrafficLightWrap {
         }
     }
 
-    public String getId() {
-        return id;
-    }
-    public int get_Phase(){
-        return this.phase;
-    }
     public Point2D.Double getPosition() {
         return position;
     }
+
     public Set<Street> getControlledStreets() {
         return controlledStreets;
     }
@@ -312,5 +333,7 @@ public class TrafficLightWrap {
         }
 
     }
-
+    public String getId() {
+        return this.id;
+    }
 }

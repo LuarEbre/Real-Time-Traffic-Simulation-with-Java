@@ -16,6 +16,11 @@ public class TypeList {
     /*
     type_id -> list(color,max speed)
      */
+
+    /**
+     * Constructor of the Type list.
+     * @param connection
+     */
     public TypeList(SumoTraciConnection connection) {
         this.connection = connection;
         try {
@@ -39,6 +44,11 @@ public class TypeList {
         }
     }
 
+    /**
+     * Returns all IDs inside the list.
+     *
+     * @return
+     */
     public String[] getAllTypes() {
         String[] ret = new String[types.size()];
         int i = 0;
@@ -49,6 +59,11 @@ public class TypeList {
         return ret;
     }
 
+    /**
+     * Returns the ID of a specific Type object
+     * @param id
+     * @return
+     */
     public Type getSpecificType(String id) {
         return types.get(id);
     }
