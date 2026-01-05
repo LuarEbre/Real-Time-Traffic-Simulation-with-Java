@@ -1,4 +1,8 @@
 #!/usr/bin/python3.13
+
+import pip
+pip.main(['install', 'eclipse-sumo'])
+
 import sys
 from sumo import sumo_gui
 if __name__ == '__main__':
